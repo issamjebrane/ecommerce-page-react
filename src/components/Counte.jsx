@@ -1,36 +1,37 @@
-import React, { useEffect, useState } from 'react'
+import React, {  useContext, useEffect, useRef, useState } from 'react'
 import {HiOutlinePlus,HiOutlineMinusSm} from 'react-icons/hi'
-import Card from './Card';
 import Cart from './Cart';
-export default function Counte() {
-    const [count, setCount] = useState(0);
-    function incremeting(e){
-        e.preventDefault();
-        setCount((count)=>{
-            return (count+1)
-        })
-    }
-    function decrementing(e){
-        e.preventDefault();
-        if(count === 0){
-            return setCount((count)=>{
-                return 0;
-            })
+import { theProvider } from '../App';
+export default function Counte({count}) {
+    const {patching} = useContext(theProvider)
+    let counting 
+    function handleButtons(event){
+        event.preventDefault()
+        if(event.target.value === 'increment'){
+            counting = count + 1
+            patching({type : true , actionning :counting})
+            console.log(counting)
         }
-        setCount((count)=>{
-            return count -1;
-        })
+        else {
+            if(count == 0){
+                patching({type : true , actionning :0}) 
+            }else {
+                counting = count-1
+                patching({type : true , actionning :counting}) 
+            }
+        }
     }
-   
+    
 
 
   return (
-    <div>
-        <div className='flex justify-between items-center mt-4 px-4 py-2 
+    <div className='flex gap-2 flex-shrink-0 sm:block'>
+        <div className='grow flex justify-between items-center mt-4 px-4 py-2 
         font-Kumbh font-bold bg-Light_grayish_blue rounded-lg'>
-        <button  className='text-Orange cursor-pointer' onClick={decrementing}><HiOutlineMinusSm/></button>
+        <button  className='text-Orange cursor-pointer' onClick={handleButtons} value='decrement' ><HiOutlineMinusSm className='pointer-events-none'/></button>
         <p>{count}</p>
-        <button className='text-Orange cursor-pointer' onClick={incremeting}><HiOutlinePlus/></button>
+        {/* pointer event ooooooooh i been trying to find u */}
+        <button className='text-Orange cursor-pointer' onClick={handleButtons} value='increment'><HiOutlinePlus className=' pointer-events-none'/></button>
         </div>
         <Cart count={count}/>
     </div>

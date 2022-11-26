@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "vite build --port 8080",
+    "preview": "vite preview --port 8080"
   },
   "dependencies": {
     "@chec/commerce.js": "^2.8.0",
@@ -18,7 +18,8 @@
     "react": "^18.2.0",
     "react-alice-carousel": "^2.6.6",
     "react-dom": "^18.2.0",
-    "react-icons": "^4.6.0"
+    "react-icons": "^4.6.0",
+    "react-router-dom": "^6.4.3"
   },
   "devDependencies": {
     "@types/react": "^18.0.24",
